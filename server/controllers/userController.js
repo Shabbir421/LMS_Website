@@ -25,24 +25,11 @@ export const getUserData = async (req, res) => {
 
 export const userEnrolledCourses = async (req, res) => {
   try {
-    const clerkUserId = req.auth.userId; // Clerk ID
+    const userId = req.auth.userId;
+    const userData = await User.findById(userId).populate("enrolledCourses");
 
-    const userData = await User.findOne({ clerkId: clerkUserId }).populate(
-      "enrolledCourses"
-    );
-
-    if (!userData) {
-      return res
-        .status(404)
-        .json({ success: false, message: "User not found" });
-    }
-
-    res.json({
-      success: true,
-      enrolledCourses: userData.enrolledCourses,
-    });
+    res.json({ success: true, enrolledCourses: userData.enrolledCourses });
   } catch (error) {
-    console.error("Enroll fetch error:", error.message);
     res.json({ success: false, message: error.message });
   }
 };
