@@ -223,7 +223,6 @@ const Player = () => {
         <div className="md:mt-10">
           {playerData ? (
             <div className="">
-              // inside JSX
               <YouTube
                 videoId={getYouTubeId(playerData.lectureUrl)}
                 iframeClassName="w-full aspect-video"
