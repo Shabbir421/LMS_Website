@@ -6,23 +6,51 @@ import User from '../models/User.js'
 
 
 // Update role to educator
-export const updateRoleToEducator = async (req,res)=>{
-    try {
-        const userId = req.auth.userId
 
-        await clerkClient.users.updateUserMetadata(userId, {
-            publicMetadata:{
-                role: 'educator',
-            }
-        })
+export const updateRoleToEducator = async (req, res) => {
+  try {
+    const requesterId = req.auth.userId;  // The user making the request
+    const { targetUserId } = req.body;    // The user to make educator
 
-        res.json({success: true, message: 'You can publish a course now'})
+    // 1️⃣ Get requester metadata
+    const requester = await clerkClient.users.getUser(requesterId);
 
-
-    } catch (error) {
-        res.json({success: false, message:error.message})
+    if (requester.publicMetadata.role !== "admin") {
+      return res.status(403).json({ 
+        success: false, 
+        message: "Only admin can assign educator role" 
+      });
     }
-}
+
+    // 2️⃣ Update target user's role
+    await clerkClient.users.updateUserMetadata(targetUserId, {
+      publicMetadata: { role: "educator" }
+    });
+
+    res.json({ success: true, message: "User is now an educator" });
+
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+// export const updateRoleToEducator = async (req,res)=>{
+//     try {
+//         const userId = req.auth.userId
+
+//         await clerkClient.users.updateUserMetadata(userId, {
+//             publicMetadata:{
+//                 role: 'educator',
+//             }
+//         })
+
+//         res.json({success: true, message: 'You can publish a course now'})
+
+
+//     } catch (error) {
+//         res.json({success: false, message:error.message})
+//     }
+// }
 
 //  Add new course 
 // export const addCourse = async(req,res) =>{
