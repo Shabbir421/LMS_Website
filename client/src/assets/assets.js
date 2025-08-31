@@ -43,9 +43,9 @@ import profile_img from "./profile_img.png";
 import profile_img2 from "./profile_img2.png";
 import profile_img3 from "./profile_img3.png";
 import lesson_icon from "./lesson_icon.svg";
-import mote from "./mote.png";
-import nalli from "./nalli.png";
-import shabbir from "./shabbir.png";
+import mote from "./mote.jpg";
+import nalli from "./nalli.jpg";
+import shabbir from "./shabbir.jpg";
 export const assets = {
   mote,
   nalli,
