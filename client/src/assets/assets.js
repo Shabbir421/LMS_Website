@@ -117,7 +117,7 @@ export const dummyTestimonial = [
       "Edemy LMS helped me stay consistent with my studies and track progress effectively. Highly recommended for all students.",
   },
   {
-    name: "Mohammad Shabbir Ansari",
+    name: "Mohammad Shabbir",
     role: "CSE Graduate 2025",
     image: assets.shabbir, // replace with correct asset
     rating: 5,
