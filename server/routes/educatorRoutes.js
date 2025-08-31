@@ -8,27 +8,7 @@ const educatorRouter = express.Router()
 
 // add educator role
 
-
-// educatorRouter.get('/update-role', updateRoleToEducator);
-// middleware to check admin
-const isAdmin = (req, res, next) => {
-  if (req.user.role !== "admin") {
-    return res.status(403).json({ success: false, message: "Not authorized" });
-  }
-  next();
-};
-
-// only admin can upgrade a user to educator
-app.post("/admin/make-educator", isAdmin, async (req, res) => {
-  try {
-    const { userId } = req.body;
-    await User.findByIdAndUpdate(userId, { role: "educator" });
-    res.json({ success: true, message: "Educator role granted" });
-  } catch (err) {
-    res.status(500).json({ success: false, message: "Server error" });
-  }
-});
-
+educatorRouter.get('/update-role', updateRoleToEducator);
 educatorRouter.post('/add-course', upload.single('image'), protectEducator, addCourse);
 educatorRouter.get('/courses', protectEducator, getEducatorCourses);
 educatorRouter.get('/dashboard', protectEducator, educatorDashboardData);
